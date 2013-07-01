@@ -121,7 +121,7 @@
 @synthesize buttonLayout;
 @synthesize width;
 @synthesize maxHeight;
-@synthesize usesMessageTextView;
+@synthesize usesMessageTextView = _usesMessageTextView;
 @synthesize backgroundImage = _backgroundImage;
 @synthesize style;
 
@@ -270,6 +270,16 @@ const CGFloat kTSAlertView_ColumnMargin = 10.0;
 		return maxHeight;
 	
 	return MIN( maxHeight, self.superview.bounds.size.height - 20 );
+}
+
+-(void)setUsesMessageTextView:(BOOL)usesMessageTextView {
+    _usesMessageTextView = usesMessageTextView;
+    
+    if (_usesMessageTextView) {
+        if (self.messageLabel.superview != nil) {
+            [self.messageLabel removeFromSuperview];
+        }
+    }
 }
 
 - (void) setStyle:(TSAlertViewStyle)newStyle
